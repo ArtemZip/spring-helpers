@@ -14,11 +14,11 @@ import java.util.List;
 @Entity
 @RestCrudController("hello")
 @JpaRepository({
-    @Method(name = "findAllByName", returnType = List.class, args = {String.class}),
-    @Method(name = "findAllByNameAndId", returnType = List.class, args = {String.class, Long.class}),
-    @Method(name = "getNameById", returnType = String.class, args = {Long.class}, query = "Select u.name from Tmp u where u.id = ?1")
-})
-public class Tmp {
+        @Method(name = "findAllByName", returnType = List.class, args = {String.class}),
+        @Method(name = "findAllByNameAndId", returnType = List.class, args = {String.class, Long.class}),
+        @Method(name = "getNameById", returnType = String.class, args = {
+                Long.class }, query = "Select u.name from ExampleEntity u where u.id = ?1") })
+public class ExampleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -41,8 +41,5 @@ public class Tmp {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "Tmp{" + "id=" + id + ", name='" + name + '\'' + '}';
-    }
+
 }
