@@ -2,7 +2,7 @@ Spring Helpers (tmp name)
 ========
 
 ### Description
-`Spring helpers` is additional library fro `Spring framework` which provides additional annotations for generation common spring structures (such as repositories, controllers, etc).
+`Spring helpers` is additional library for `Spring framework` which provides additional annotations for generation common spring structures (such as repositories, controllers, etc).
 
 ### Architecture
 This project contains three modules:
