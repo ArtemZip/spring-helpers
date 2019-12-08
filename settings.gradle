@@ -1,0 +1,5 @@
+rootProject.name = 'spring-helpers'
+include 'annotations-lib'
+include 'experiment'
+include 'processors-lib'
+
