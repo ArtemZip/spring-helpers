@@ -1,7 +1,5 @@
 package com.github.artemzip.processor;
 
-import com.github.artemzip.annotation.JpaRepository;
-import com.github.artemzip.annotation.RestCrudController;
 import com.github.artemzip.helper.HelpersFactory;
 
 import javax.annotation.processing.AbstractProcessor;
