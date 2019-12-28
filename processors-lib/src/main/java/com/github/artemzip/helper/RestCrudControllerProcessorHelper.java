@@ -27,7 +27,7 @@ import javax.lang.model.util.Types;
 import javax.validation.Valid;
 import java.util.Optional;
 
-import static com.github.artemzip.utils.AnnotationUtils.getValueOfAnnotationOnElement;
+import static com.github.artemzip.utils.AnnotationUtils.getParameterOfAnnotationOnElement;
 import static com.github.artemzip.utils.TypeNameUtils.getParameterizedType;
 import static com.github.artemzip.utils.TypeNameUtils.getTypeOfId;
 
@@ -47,7 +47,7 @@ public class RestCrudControllerProcessorHelper extends AbstractProcessorHelper {
             final String typePackageName = getPackageName((TypeElement) element);
             final String elementName = element.getSimpleName().toString();
 
-            String mapping = (String) getValueOfAnnotationOnElement(element, RestCrudController.class, "value");
+            String mapping = (String) getParameterOfAnnotationOnElement(element, RestCrudController.class, "value");
             mapping = mapping == null ? elementName.toLowerCase() : mapping;
 
             final AnnotationSpec path = AnnotationSpec.builder(RequestMapping.class)
@@ -61,13 +61,23 @@ public class RestCrudControllerProcessorHelper extends AbstractProcessorHelper {
                                                             .addField(FieldSpec.builder(
                                                                     ClassName.bestGuess(getRepositoryClassName(elementName, typePackageName)),
                                                                     "repository",
-                                                                    Modifier.PRIVATE
-                                                            ).addAnnotation(Autowired.class).build())
-                                                            .addMethod(save((TypeElement) element))
-                                                            .addMethod(findAllMethod((TypeElement) element))
-                                                            .addMethod(findById((TypeElement) element))
-                                                            .addMethod(deleteById((TypeElement) element))
-                                                            .addMethod(delete((TypeElement) element));
+                                                                    Modifier.PRIVATE).addAnnotation(Autowired.class).build());
+
+            Boolean save = (Boolean) getParameterOfAnnotationOnElement(element, RestCrudController.class, "save");
+            Boolean read = (Boolean) getParameterOfAnnotationOnElement(element, RestCrudController.class, "read");
+            Boolean delete = (Boolean) getParameterOfAnnotationOnElement(element, RestCrudController.class, "delete");
+
+            if (save == null || save) {
+                restController.addMethod(save((TypeElement) element));
+            }
+
+            if (read == null || read) {
+                restController.addMethod(findAllMethod((TypeElement) element)).addMethod(findById((TypeElement) element));
+            }
+
+            if (delete == null || delete) {
+                restController.addMethod(deleteById((TypeElement) element)).addMethod(delete((TypeElement) element));
+            }
 
             writeType(restController.build(), typePackageName + PACKAGE_SUFFIX);
         });

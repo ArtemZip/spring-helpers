@@ -8,7 +8,7 @@ import javax.lang.model.element.ExecutableElement;
 public class AnnotationUtils {
     private AnnotationUtils() {}
 
-    public static Object getValueOfAnnotationOnElement(Element element, Class<?> annotation, String key) {
+    public static Object getParameterOfAnnotationOnElement(Element element, Class<?> annotation, String key) {
         final AnnotationMirror annotationMirror = getAnnotationMirrorOfElement(element, annotation);
         final AnnotationValue annotationValue = annotationMirror == null ? null : getAnnotationValue(annotationMirror, key);
         return  annotationValue == null ? null : annotationValue.getValue();

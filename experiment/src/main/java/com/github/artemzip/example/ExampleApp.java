@@ -1,7 +1,7 @@
-package com.github.artemzip;
+package com.github.artemzip.example;
 
 
-import com.github.artemzip.repository.ExampleEntityRepository;
+import com.github.artemzip.example.repository.ExampleEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,10 +13,6 @@ public class ExampleApp {
 
     @Autowired
     ExampleEntityRepository repository;
-
-    public void init() {
-        System.out.println("hey");
-    }
 
     @Bean
     public CommandLineRunner tmp () {
@@ -31,6 +27,7 @@ public class ExampleApp {
 
             repository.findAllByName("ahoj").forEach( e -> System.out.println(e.getName()));
             System.out.println(repository.getNameById(1L) + " <<");
+
         };
     }
 

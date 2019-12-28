@@ -1,4 +1,4 @@
-package com.github.artemzip;
+package com.github.artemzip.example;
 
 import com.github.artemzip.annotation.JpaRepository;
 import com.github.artemzip.annotation.RestCrudController;
@@ -8,11 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 
 @Entity
-@RestCrudController("hello")
+@RestCrudController(value = "example", read = false)
 @JpaRepository({
         @Method(name = "findAllByName", returnType = List.class, args = {String.class}),
         @Method(name = "findAllByNameAndId", returnType = List.class, args = {String.class, Long.class}),
@@ -23,6 +24,7 @@ public class ExampleEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull
     private String name;
 
     public Long getId() {
